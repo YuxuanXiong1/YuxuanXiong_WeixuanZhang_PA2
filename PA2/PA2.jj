@@ -62,7 +62,9 @@ void MainClass() :
 {
     <CLASS> <IDENTIFIER> <LBRACE>
     <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> <IDENTIFIER> <RPAREN> <LBRACE>
-    Statement()
+    ( VarDeclaration() )*
+    ( MethodDeclaration() )*
+    ( Statement() )*
     <RBRACE> <RBRACE>
 }
 
@@ -78,7 +80,7 @@ void ClassDeclaration() :
 void VarDeclaration() :
 {}
 {
-        Type() <IDENTIFIER> ( <ASSIGN> Expression() )? <SEMICOLON>
+    Type() <IDENTIFIER> ( <ASSIGN> Expression() )? <SEMICOLON>
 
 }
 
