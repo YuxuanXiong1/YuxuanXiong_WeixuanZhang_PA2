@@ -1,5 +1,5 @@
 options {
-    STATIC = false;
+    IGNORE_CASE = false;
 }
 
 PARSER_BEGIN(MiniJavaParser)
@@ -73,10 +73,11 @@ void MainClass() :
 {
     <CLASS> <IDENTIFIER> <LBRACE>
     <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> <IDENTIFIER> <RPAREN> <LBRACE>
-    ( VarDeclaration() )*
-    ( MethodDeclaration() )*
+    ( VarDeclaration() )*    
     ( Statement() )*
-    <RBRACE> <RBRACE>
+    <RBRACE> 
+    ( MethodDeclaration() )*
+    <RBRACE>
 }
 
 void ClassDeclaration() :
@@ -98,17 +99,17 @@ void VarDeclaration() :
 void MethodDeclaration() :
 {}
 {
-    <PUBLIC> Type() <IDENTIFIER> <LPAREN> ( Type() <IDENTIFIER> ( <COMMA> Type() <IDENTIFIER> )* )? <RPAREN> <LBRACE>
+    <PUBLIC> (<STATIC>)? Type() <IDENTIFIER> <LPAREN> ( Type() <IDENTIFIER> ( <COMMA> Type() <IDENTIFIER> )* )? <RPAREN> <LBRACE>
     ( VarDeclaration() )*
     ( Statement() )*
-    <RETURN> Expression() <SEMICOLON>
+    (<RETURN> Expression() <SEMICOLON>)?
     <RBRACE>
 }
 
 void Type() :
 {}
 {
-    <INT> | <BOOLEAN> | <STRING>
+    <INT> | <BOOLEAN> | <STRING> | <VOID>
 }
 
 void IfStatement() :

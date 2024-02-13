@@ -6,7 +6,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
         System.out.println("Parse success!");
     }
 
-  final public void Program() throws ParseException {
+  static final public void Program() throws ParseException {
     MainClass();
     label_1:
     while (true) {
@@ -23,7 +23,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(0);
   }
 
-  final public void MainClass() throws ParseException {
+  static final public void MainClass() throws ParseException {
     jj_consume_token(CLASS);
     jj_consume_token(IDENTIFIER);
     jj_consume_token(LBRACE);
@@ -41,6 +41,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case VOID:
       case STRING:
       case INT:
       case BOOLEAN:
@@ -55,18 +56,6 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     label_3:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case PUBLIC:
-        ;
-        break;
-      default:
-        jj_la1[2] = jj_gen;
-        break label_3;
-      }
-      MethodDeclaration();
-    }
-    label_4:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case IF:
       case WHILE:
       case PRINTLN:
@@ -75,16 +64,28 @@ public class MiniJavaParser implements MiniJavaParserConstants {
         ;
         break;
       default:
-        jj_la1[3] = jj_gen;
-        break label_4;
+        jj_la1[2] = jj_gen;
+        break label_3;
       }
       Statement();
     }
     jj_consume_token(RBRACE);
+    label_4:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case PUBLIC:
+        ;
+        break;
+      default:
+        jj_la1[3] = jj_gen;
+        break label_4;
+      }
+      MethodDeclaration();
+    }
     jj_consume_token(RBRACE);
   }
 
-  final public void ClassDeclaration() throws ParseException {
+  static final public void ClassDeclaration() throws ParseException {
     jj_consume_token(CLASS);
     jj_consume_token(IDENTIFIER);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -100,6 +101,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     label_5:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case VOID:
       case STRING:
       case INT:
       case BOOLEAN:
@@ -126,7 +128,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(RBRACE);
   }
 
-  final public void VarDeclaration() throws ParseException {
+  static final public void VarDeclaration() throws ParseException {
     Type();
     jj_consume_token(IDENTIFIER);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -141,12 +143,21 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(SEMICOLON);
   }
 
-  final public void MethodDeclaration() throws ParseException {
+  static final public void MethodDeclaration() throws ParseException {
     jj_consume_token(PUBLIC);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case STATIC:
+      jj_consume_token(STATIC);
+      break;
+    default:
+      jj_la1[8] = jj_gen;
+      ;
+    }
     Type();
     jj_consume_token(IDENTIFIER);
     jj_consume_token(LPAREN);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case VOID:
     case STRING:
     case INT:
     case BOOLEAN:
@@ -159,7 +170,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
           ;
           break;
         default:
-          jj_la1[8] = jj_gen;
+          jj_la1[9] = jj_gen;
           break label_7;
         }
         jj_consume_token(COMMA);
@@ -168,7 +179,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
       }
       break;
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[10] = jj_gen;
       ;
     }
     jj_consume_token(RPAREN);
@@ -176,13 +187,14 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     label_8:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case VOID:
       case STRING:
       case INT:
       case BOOLEAN:
         ;
         break;
       default:
-        jj_la1[10] = jj_gen;
+        jj_la1[11] = jj_gen;
         break label_8;
       }
       VarDeclaration();
@@ -198,18 +210,25 @@ public class MiniJavaParser implements MiniJavaParserConstants {
         ;
         break;
       default:
-        jj_la1[11] = jj_gen;
+        jj_la1[12] = jj_gen;
         break label_9;
       }
       Statement();
     }
-    jj_consume_token(RETURN);
-    Expression();
-    jj_consume_token(SEMICOLON);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case RETURN:
+      jj_consume_token(RETURN);
+      Expression();
+      jj_consume_token(SEMICOLON);
+      break;
+    default:
+      jj_la1[13] = jj_gen;
+      ;
+    }
     jj_consume_token(RBRACE);
   }
 
-  final public void Type() throws ParseException {
+  static final public void Type() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INT:
       jj_consume_token(INT);
@@ -220,14 +239,17 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     case STRING:
       jj_consume_token(STRING);
       break;
+    case VOID:
+      jj_consume_token(VOID);
+      break;
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[14] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
   }
 
-  final public void IfStatement() throws ParseException {
+  static final public void IfStatement() throws ParseException {
     jj_consume_token(IF);
     jj_consume_token(LPAREN);
     Expression();
@@ -244,7 +266,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[15] = jj_gen;
         break label_10;
       }
       Statement();
@@ -265,7 +287,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
           ;
           break;
         default:
-          jj_la1[14] = jj_gen;
+          jj_la1[16] = jj_gen;
           break label_11;
         }
         Statement();
@@ -273,12 +295,12 @@ public class MiniJavaParser implements MiniJavaParserConstants {
       jj_consume_token(RBRACE);
       break;
     default:
-      jj_la1[15] = jj_gen;
+      jj_la1[17] = jj_gen;
       ;
     }
   }
 
-  final public void WhileStatement() throws ParseException {
+  static final public void WhileStatement() throws ParseException {
     jj_consume_token(WHILE);
     jj_consume_token(LPAREN);
     Expression();
@@ -295,7 +317,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
         ;
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[18] = jj_gen;
         break label_12;
       }
       Statement();
@@ -303,7 +325,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(RBRACE);
   }
 
-  final public void PrintStatement() throws ParseException {
+  static final public void PrintStatement() throws ParseException {
     jj_consume_token(PRINT);
     jj_consume_token(LPAREN);
     Expression();
@@ -311,7 +333,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(SEMICOLON);
   }
 
-  final public void PrintlnStatement() throws ParseException {
+  static final public void PrintlnStatement() throws ParseException {
     jj_consume_token(PRINTLN);
     jj_consume_token(LPAREN);
     Expression();
@@ -319,7 +341,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     jj_consume_token(SEMICOLON);
   }
 
-  final public void Statement() throws ParseException {
+  static final public void Statement() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case IDENTIFIER:
       jj_consume_token(IDENTIFIER);
@@ -340,13 +362,13 @@ public class MiniJavaParser implements MiniJavaParserConstants {
       PrintStatement();
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[19] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
   }
 
-  final public void Expression() throws ParseException {
+  static final public void Expression() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INTEGER_LITERAL:
       jj_consume_token(INTEGER_LITERAL);
@@ -355,22 +377,23 @@ public class MiniJavaParser implements MiniJavaParserConstants {
       jj_consume_token(IDENTIFIER);
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[20] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
   }
 
+  static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
-  public MiniJavaParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  static public MiniJavaParserTokenManager token_source;
+  static SimpleCharStream jj_input_stream;
   /** Current token. */
-  public Token token;
+  static public Token token;
   /** Next token. */
-  public Token jj_nt;
-  private int jj_ntk;
-  private int jj_gen;
-  final private int[] jj_la1 = new int[19];
+  static public Token jj_nt;
+  static private int jj_ntk;
+  static private int jj_gen;
+  static final private int[] jj_la1 = new int[21];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -378,10 +401,10 @@ public class MiniJavaParser implements MiniJavaParserConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0xc800,0x80,0x3d0000,0x1000,0xc800,0x80,0x80000000,0x800000,0xc800,0xc800,0x3d0000,0xc800,0x3d0000,0x3d0000,0x20000,0x3d0000,0x3d0000,0x200020,};
+      jj_la1_0 = new int[] {0x40,0xca00,0x3d0000,0x80,0x1000,0xca00,0x80,0x80000000,0x100,0x800000,0xca00,0xca00,0x3d0000,0x2000,0xca00,0x3d0000,0x3d0000,0x20000,0x3d0000,0x3d0000,0x200020,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -390,55 +413,76 @@ public class MiniJavaParser implements MiniJavaParserConstants {
   }
   /** Constructor with InputStream and supplied encoding */
   public MiniJavaParser(java.io.InputStream stream, String encoding) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser.  ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new MiniJavaParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream) {
+  static public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
+  static public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
   public MiniJavaParser(java.io.Reader stream) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new MiniJavaParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.Reader stream) {
+  static public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
   public MiniJavaParser(MiniJavaParserTokenManager tm) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -447,10 +491,10 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
-  private Token jj_consume_token(int kind) throws ParseException {
+  static private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -466,7 +510,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
 
 
 /** Get the next Token. */
-  final public Token getNextToken() {
+  static final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
@@ -475,7 +519,7 @@ public class MiniJavaParser implements MiniJavaParserConstants {
   }
 
 /** Get the specific Token. */
-  final public Token getToken(int index) {
+  static final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -484,26 +528,26 @@ public class MiniJavaParser implements MiniJavaParserConstants {
     return t;
   }
 
-  private int jj_ntk() {
+  static private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List jj_expentries = new java.util.ArrayList();
-  private int[] jj_expentry;
-  private int jj_kind = -1;
+  static private java.util.List jj_expentries = new java.util.ArrayList();
+  static private int[] jj_expentry;
+  static private int jj_kind = -1;
 
   /** Generate ParseException. */
-  public ParseException generateParseException() {
+  static public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[42];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 21; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -530,11 +574,11 @@ public class MiniJavaParser implements MiniJavaParserConstants {
   }
 
   /** Enable tracing. */
-  final public void enable_tracing() {
+  static final public void enable_tracing() {
   }
 
   /** Disable tracing. */
-  final public void disable_tracing() {
+  static final public void disable_tracing() {
   }
 
 }
