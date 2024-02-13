@@ -100,10 +100,24 @@ void Type() :
     <INT> | <BOOLEAN> | <STRING>
 }
 
+void IfStatement() :
+{}
+{
+    <IF> <LPAREN> Expression() <RPAREN> <LBRACE> ( Statement() )* <RBRACE> ( <ELSE> <LBRACE> ( Statement() )* <RBRACE> )?
+}
+
+void WhileStatement() :
+{}
+{
+    <WHILE> <LPAREN> Expression() <RPAREN> <LBRACE> ( Statement() )* <RBRACE>
+}
+
 void Statement() :
 {}
 {
     <IDENTIFIER> <ASSIGN> Expression() <SEMICOLON>
+  | IfStatement()
+  | WhileStatement()
 }
 
 void Expression() :
