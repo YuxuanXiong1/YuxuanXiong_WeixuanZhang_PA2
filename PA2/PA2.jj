@@ -37,6 +37,7 @@ TOKEN : {
   | < ELSE : "else" >
   | < WHILE : "while" >
   | < PRINTLN : "System.out.println" >
+  | < PRINT : "System.out.print" >
   | < IDENTIFIER : (["a"-"z","A"-"Z"])(["a"-"z","A"-"Z","0"-"9","_"])* >
   | < SEMICOLON : ";" >
   | < COMMA : "," >
@@ -112,12 +113,26 @@ void WhileStatement() :
     <WHILE> <LPAREN> Expression() <RPAREN> <LBRACE> ( Statement() )* <RBRACE>
 }
 
+void PrintStatement() :
+{}
+{
+    <PRINT> <LPAREN> Expression() <RPAREN> <SEMICOLON>
+}
+
+void PrintlnStatement() :
+{}
+{
+    <PRINTLN> <LPAREN> Expression() <RPAREN> <SEMICOLON>
+}
+
 void Statement() :
 {}
 {
     <IDENTIFIER> <ASSIGN> Expression() <SEMICOLON>
   | IfStatement()
   | WhileStatement()
+  | PrintlnStatement()
+  | PrintStatement()
 }
 
 void Expression() :
