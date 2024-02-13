@@ -83,3 +83,21 @@ void MethodDeclaration() :
     <RETURN> Expression() <SEMICOLON>
     <RBRACE>
 }
+
+void Type() :
+{}
+{
+    <INT> | <BOOLEAN> | <STRING>
+}
+
+void Statement() :
+{}
+{
+    <IDENTIFIER> <ASSIGN> Expression() <SEMICOLON>
+}
+
+void Expression() :
+{}
+{
+    <INTEGER_LITERAL> | <IDENTIFIER>
+}
