@@ -5,7 +5,7 @@ options {
 PARSER_BEGIN(MiniJavaParser)
 
 public class MiniJavaParser {
-    public static void main(String args[]) throws ParseException {
+    public static void main(String[] args) {
         MiniJavaParser parser = new MiniJavaParser(System.in);
         parser.Program();
         System.out.println("Parse success!");
@@ -16,7 +16,6 @@ PARSER_END(MiniJavaParser)
 
 TOKEN : {
     < INTEGER_LITERAL : (["0"-"9"])+ >
-  | < IDENTIFIER : (["a"-"z","A"-"Z"])(["a"-"z","A"-"Z","0"-"9","_"])* >
   | < CLASS : "class" >
   | < PUBLIC : "public" >
   | < STATIC : "static" >
@@ -31,6 +30,7 @@ TOKEN : {
   | < ELSE : "else" >
   | < WHILE : "while" >
   | < PRINTLN : "System.out.println" >
+  | < IDENTIFIER : (["a"-"z","A"-"Z"])(["a"-"z","A"-"Z","0"-"9","_"])* >
   | < SEMICOLON : ";" >
   | < COMMA : "," >
   | < DOT : "." >
