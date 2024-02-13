@@ -78,7 +78,8 @@ void ClassDeclaration() :
 void VarDeclaration() :
 {}
 {
-    Type() <IDENTIFIER> <SEMICOLON>
+        Type() <IDENTIFIER> ( <ASSIGN> Expression() )? <SEMICOLON>
+
 }
 
 void MethodDeclaration() :
