@@ -5,7 +5,7 @@ options {
 PARSER_BEGIN(MiniJavaParser)
 
 public class MiniJavaParser {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         MiniJavaParser parser = new MiniJavaParser(System.in);
         parser.Program();
         System.out.println("Parse success!");
@@ -13,6 +13,13 @@ public class MiniJavaParser {
 }
 
 PARSER_END(MiniJavaParser)
+
+SKIP : {
+  " "
+| "\t"
+| "\r"
+| "\n"
+}
 
 TOKEN : {
     < INTEGER_LITERAL : (["0"-"9"])+ >

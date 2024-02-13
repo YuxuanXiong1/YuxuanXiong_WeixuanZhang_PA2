@@ -10,7 +10,7 @@ class TestCorrect {
             System.out.println("Number is less than 15");
             number++;
         }
-        for (9int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.print("Hello, World!");
         }
         boolean True = false;
