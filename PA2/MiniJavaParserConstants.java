@@ -39,27 +39,49 @@ public interface MiniJavaParserConstants {
   /** RegularExpression Id. */
   int PRINTLN = 19;
   /** RegularExpression Id. */
-  int IDENTIFIER = 20;
+  int PRINT = 20;
   /** RegularExpression Id. */
-  int SEMICOLON = 21;
+  int IDENTIFIER = 21;
   /** RegularExpression Id. */
-  int COMMA = 22;
+  int SEMICOLON = 22;
   /** RegularExpression Id. */
-  int DOT = 23;
+  int COMMA = 23;
   /** RegularExpression Id. */
-  int LPAREN = 24;
+  int DOT = 24;
   /** RegularExpression Id. */
-  int RPAREN = 25;
+  int LPAREN = 25;
   /** RegularExpression Id. */
-  int LBRACE = 26;
+  int RPAREN = 26;
   /** RegularExpression Id. */
-  int RBRACE = 27;
+  int LBRACE = 27;
   /** RegularExpression Id. */
-  int LBRACKET = 28;
+  int RBRACE = 28;
   /** RegularExpression Id. */
-  int RBRACKET = 29;
+  int LBRACKET = 29;
   /** RegularExpression Id. */
-  int ASSIGN = 30;
+  int RBRACKET = 30;
+  /** RegularExpression Id. */
+  int ASSIGN = 31;
+  /** RegularExpression Id. */
+  int PLUS = 32;
+  /** RegularExpression Id. */
+  int MINUS = 33;
+  /** RegularExpression Id. */
+  int MULTIPLY = 34;
+  /** RegularExpression Id. */
+  int DIVIDE = 35;
+  /** RegularExpression Id. */
+  int EQUALS = 36;
+  /** RegularExpression Id. */
+  int NOT_EQUALS = 37;
+  /** RegularExpression Id. */
+  int LESS_THAN = 38;
+  /** RegularExpression Id. */
+  int LESS_THAN_OR_EQUAL = 39;
+  /** RegularExpression Id. */
+  int GREATER_THAN = 40;
+  /** RegularExpression Id. */
+  int GREATER_THAN_OR_EQUAL = 41;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -86,6 +108,7 @@ public interface MiniJavaParserConstants {
     "\"else\"",
     "\"while\"",
     "\"System.out.println\"",
+    "\"System.out.print\"",
     "<IDENTIFIER>",
     "\";\"",
     "\",\"",
@@ -97,6 +120,16 @@ public interface MiniJavaParserConstants {
     "\"[\"",
     "\"]\"",
     "\"=\"",
+    "\"+\"",
+    "\"-\"",
+    "\"*\"",
+    "\"/\"",
+    "\"==\"",
+    "\"!=\"",
+    "\"<\"",
+    "\"<=\"",
+    "\">\"",
+    "\">=\"",
   };
 
 }
